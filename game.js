@@ -3,9 +3,16 @@ function setup() {
 }
 
 // Character
-function drawCharacter() {
-    rect(50, 50, 50, 50);
-}
+
+let character = {
+    x: 50,
+    y: 50,
+    w: 50,
+    h: 50,
+    draw() {
+        rect(this.x, this.y, this.w, this.h);
+    },
+};
 
 // Platform
 function drawPlatform(x, y) {
@@ -29,10 +36,9 @@ let y = 100;
 function draw() {
     background(100, 100, 100);
 
-    drawCharacter();
+    character.draw();
 
     drawPlatform(x, y + 150);
-    drawPlatform(x + 130, y + 150);
 
     drawObstacle();
 
