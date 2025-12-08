@@ -15,6 +15,19 @@ function setup() {
 // //let x = 100;
 // //let y = 100;
 let platform = new Platform(200, 200, "normal");
+import { Snowman } from "./snowman.js";
+drawSnowman;
+
+// Obstacle / Spike / Death
+function drawObstacle() {
+  push();
+  fill("red");
+  triangle(180, 300, 210, 240, 240, 300);
+  pop();
+}
+
+let x = 100;
+let y = 100;
 
 function draw() {
   background(100, 100, 100);
