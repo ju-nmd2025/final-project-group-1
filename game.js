@@ -5,6 +5,9 @@ function setup() {
     createCanvas(400, 400);
 }
 
+import { Snowman } from "./snowman.js";
+drawSnowman 
+
 // Obstacle / Spike / Death
 function drawObstacle() {
     push();
