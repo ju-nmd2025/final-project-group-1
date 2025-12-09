@@ -38,6 +38,14 @@ export default class Snowman {
         pop();
     }
 }
+fuctio setup (){
+    createCanvas(400, 400);
+    fill(220);
+}
+
+function draw() {
+    background(220);
+}
 
 function drawSnowman(x, y) {
     // Leg circle (fixed!)
