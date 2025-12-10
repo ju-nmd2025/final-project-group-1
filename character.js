@@ -1,9 +1,46 @@
-export let character = {
-    x: 50,
-    y: 50,
-    w: 50,
-    h: 50,
-    function draw(x, y) {
+//Snowman
+
+export default class Snowman {
+    constructor(x, y, w, h, fallspeed, jumpDistance) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+
+        this.fallspeed = fallspeed;
+        this.jumpDistance = jumpDistance;
+    }
+
+    fall() {
+        this.y += this.fallspeed;
+    }
+    
+    jump() {
+        this.y -= this.jumpDistance;
+    }
+
+    isColliding(objects, gameSpeed) {
+        for (const object of objects) {
+            if (
+                Math.abs(this.y + this.h - object.y) < gameSpeed &&
+                this.x + this.w >= object.x &&
+                this.x <= object.x + object.w
+            ) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    draw() {
+        push();
+        fill("white");
+        drawSnowman(this.x, this.y);
+        pop();
+    }
+}
+
+function drawSnowman(x, y) {
     // Leg circle (fixed!)
     fill(255);
     ellipse(x, y, 50, 50);
@@ -28,4 +65,3 @@ export let character = {
     ellipse(x, y - 50, 5, 5);
     ellipse(x, y - 35, 5, 5);
 }
-};

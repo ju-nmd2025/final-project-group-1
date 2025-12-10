@@ -1,42 +1,59 @@
-import { character } from "./character";
-import platform from "platform";
+import { platform } from "./platform.js";
+import { Snowman } from './character.js';
+
+let Snowman;
+let platforms = [];
+let groundY = 500;
 
 function setup() {
-    createCanvas(400, 400);
-}
+    createCanvas(800, 600);
 
-// Obstacle / Spike / Death
-function drawObstacle() {
-    push();
-    fill("red");
-    triangle(180, 300, 210, 240, 240, 300);
-    pop();
-}
+Snowman = new Snowman(
+200, //x
+groundY, //y
+50, //width
+50, //height
+1, //fallspeed
+10 //jumpDistance
+);
 
-let x = 100;
-let y = 100;
+//First platform
+platforms.push(new platform(200, groundY + 50, 100, 20));
+}
 
 function draw() {
-    background(100, 100, 100);
+    background(170, 260, 280);
+  
+    let x = 300;
+    let y = 500;
 
-    character.draw();
-	platform.draw();
-
-    platform.x -= 10;
-    if(platform.x + platform.w < 0){
-        platform.x = 500;
-    }
-
-    if(character.y + character.h < 300){
-        character.y += 10;
-    }
-
-    // Floor
-    line(0, 300, 400, 300);
+    character.draw(x, y);
 }
 
-function keyPressed(){
-    if(character.y + character.h === 300){
-        character.y -= 80;
+Snowmman.applyGravity();
+
+// Prevent snowman from falling below ground
+if (Snowman.y < groundY) {
+    Snowman.y = groundY;
+    Snowman.jumpDistance = 0;
+}
+
+Snowman.draw();
+
+// Update and draw platforms
+for (let o of platforms) {
+    o.update();
+    o.draw();
+}
+
+//Generate new platforms
+if (platforms[platforms.length - 1].x < 300) {
+    obstacles.push(new platform(800, groundY + 30, 40, 30, 4));
+}
+
+function keyPressed() {
+    if (key === ' ') {
+        Snowman.jump();
     }
 }
+
