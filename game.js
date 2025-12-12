@@ -1,69 +1,48 @@
-//import  character  from "./character.js";
-import Platform from "./platform.js";
+import Snowman from "./character.js";
 
-// //let character;
+let character;      
+const groundY = 500;
 
 function setup() {
-  createCanvas(500, 700);
+    createCanvas(400, 600);
 
-  //Create the player
-  //character = new Character();
-
-  //Create test platform
+    character = new Snowman(
+        300, 500,   // x, y
+        40, 60,     // width, height
+        8,          // fall speed
+        100          // jump height
+    );
 }
-
-// //let x = 100;
-// //let y = 100;
-let platform = new Platform(200, 200, "normal");
-import { Snowman } from "./snowman.js";
-drawSnowman;
-
-// Obstacle / Spike / Death
-function drawObstacle() {
-  push();
-  fill("red");
-  triangle(180, 300, 210, 240, 240, 300);
-  pop();
-}
-
-let x = 100;
-let y = 100;
 
 function draw() {
-  background(100, 100, 100);
+    background(135, 206, 235);
+    character.draw (255);
 
-  //Draw platform
-  platform.update();
-  platform.draw();
+    // Fallande rörelse
+    character.fall();
+
+    // Stoppa vid marken
+    if (character.y > groundY) {
+        character.y = groundY;
+    }
+
+    // Marken
+    fill(34, 139, 34);
+    rect(0, groundY + 30, width, height - groundY - 30);
+
+    // Rörelse med piltangenter
+
+    if (keyIsDown(LEFT_ARROW)) {
+    character.moveLeft(5);
+    }
+
+    if (keyIsDown(RIGHT_ARROW)) {
+    character.moveRight(5);
+    }
 }
 
-// //Move platform left to right
-// //platform.x -= 2;
-// //if (platform.x + platform.w < 0) {
-// //platform.x = width;
-// //}
-
-// //character.draw();
-
-// //createPlatform(200);
-
-// //platform.draw();
-
-// //platform.x -= 10;
-// //if(platform.x + platform.w < 0){
-// //platform.x = 500;
-// //}
-
-// //if(character.y + character.h < 300){
-// //character.y += 10;
-// //}
-
-// // Floor
-// //line(0, 300, 400, 300);
-// //}
-
-// //function keyPressed(){
-// //if(character.y + character.h === 300){
-// //character.y -= 80;
-// //}
-// //}
+function keyPressed() {
+    if (key === ' ') {
+        character.jump();
+    }
+}
