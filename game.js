@@ -6,11 +6,10 @@ const groundY = 500;
 function setup() {
     createCanvas(400, 600);
 
-    // Skapa snowman EN gång här
     character = new Snowman(
         300, 500,   // x, y
         40, 60,     // width, height
-        4,          // fall speed
+        8,          // fall speed
         100          // jump height
     );
 }
@@ -19,7 +18,7 @@ function draw() {
     background(135, 206, 235);
     character.draw (255);
 
-    // Falling
+    // Fallande rörelse
     character.fall();
 
     // Stoppa vid marken
