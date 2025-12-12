@@ -1,44 +1,32 @@
-import { platform } from "./platform.js";
-import { Snowman } from './character.js';
+import Snowman from "./character.js";
 
-let Snowman;
-let platforms = [];
-let groundY = 500;
+let character;
 
 function setup() {
     createCanvas(800, 600);
 
-Snowman = new Snowman(
-200, //x
-groundY, //y
-50, //width
-50, //height
-1, //fallspeed
-10 //jumpDistance
-);
-
-//First platform
-platforms.push(new platform(200, groundY + 50, 100, 20));
+    character = new Snowman(
+        300, 500,   // x, y
+        40, 60,     // width, height
+        4,          // fall speed
+        50          // jump height
+    );
 }
 
 function draw() {
     background(170, 260, 280);
-  
-    let x = 300;
-    let y = 500;
 
-    character.draw(x, y);
+    character.fall();
+    character.draw();
 }
 
-Snowmman.applyGravity();
+character.applyGravity();
 
 // Prevent snowman from falling below ground
 if (Snowman.y < groundY) {
     Snowman.y = groundY;
     Snowman.jumpDistance = 0;
 }
-
-Snowman.draw();
 
 // Update and draw platforms
 for (let o of platforms) {
