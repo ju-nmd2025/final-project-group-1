@@ -1,47 +1,49 @@
 import Snowman from "./character.js";
 
-let character;
+let character;      
+const groundY = 500;
 
 function setup() {
-    createCanvas(800, 600);
+    createCanvas(400, 600);
 
+    // Skapa snowman EN gång här
     character = new Snowman(
         300, 500,   // x, y
         40, 60,     // width, height
         4,          // fall speed
-        50          // jump height
+        100          // jump height
     );
 }
 
 function draw() {
-    background(170, 260, 280);
+    background(135, 206, 235);
+    character.draw (255);
 
+    // Falling
     character.fall();
-    character.draw();
-}
 
-character.applyGravity();
+    // Stoppa vid marken
+    if (character.y > groundY) {
+        character.y = groundY;
+    }
 
-// Prevent snowman from falling below ground
-if (Snowman.y < groundY) {
-    Snowman.y = groundY;
-    Snowman.jumpDistance = 0;
-}
+    // Marken
+    fill(34, 139, 34);
+    rect(0, groundY + 30, width, height - groundY - 30);
 
-// Update and draw platforms
-for (let o of platforms) {
-    o.update();
-    o.draw();
-}
+    // Rörelse med piltangenter
 
-//Generate new platforms
-if (platforms[platforms.length - 1].x < 300) {
-    obstacles.push(new platform(800, groundY + 30, 40, 30, 4));
+    if (keyIsDown(LEFT_ARROW)) {
+    character.moveLeft(5);
+    }
+
+    if (keyIsDown(RIGHT_ARROW)) {
+    character.moveRight(5);
+    }
 }
 
 function keyPressed() {
     if (key === ' ') {
-        Snowman.jump();
+        character.jump();
     }
 }
-

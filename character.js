@@ -18,6 +18,14 @@ export default class Snowman {
     jump() {
         this.y -= this.jumpDistance;
     }
+    
+    moveLeft(speed) {
+        this.x -= speed;
+    }
+
+    moveRight(speed) {
+        this.x += speed;
+    }
 
     isColliding(objects, gameSpeed) {
         for (const object of objects) {
@@ -32,36 +40,33 @@ export default class Snowman {
         return false;
     }
     
-    draw() {
-        push();
-        fill("white");
-        drawSnowman(this.x, this.y);
-        pop();
-    }
-}
+    draw(x, y) {
+    push();
 
-function drawSnowman(x, y) {
     // Leg circle (fixed!)
     fill(255);
-    ellipse(x, y, 50, 50);
+    ellipse(this.x, this.y, 50, 50);
     
     // Middle circle
-    ellipse(x, y - 40, 40, 40);
+    ellipse(this.x, this.y - 40, 40, 40);
     
     // Head circle
-    ellipse(x, y - 70, 30, 30);
+    ellipse(this.x, this.y - 70, 30, 30);
     
     // Eyes
     fill(0);
-    ellipse(x - 5, y - 75, 5, 5);
-    ellipse(x + 5, y - 75, 5, 5);
+    ellipse(this.x - 5, this.y - 75, 5, 5);
+    ellipse(this.x + 5, this.y - 75, 5, 5);
     
     // Carrot nose
     fill(255, 165, 0);
-    triangle(x, y - 67, x + 12, y - 65, x, y - 63);
+    triangle(this.x, this.y - 67, this.x + 12, this.y - 65, this.x, this.y - 63);
 
     // Buttons
     fill(0);
-    ellipse(x, y - 50, 5, 5);
-    ellipse(x, y - 35, 5, 5);
+    ellipse(this.x, this.y - 50, 5, 5);
+    ellipse(this.x, this.y - 35, 5, 5);
+
+    pop();
+    }
 }
