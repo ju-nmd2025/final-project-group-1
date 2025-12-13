@@ -12,7 +12,8 @@ export default class Snowman {
     }
 
     fall() {
-        this.y += this.fallspeed;
+    this.y += this.fallspeed;
+    this.fallspeed += 0.8;
     }
     
     jump() {

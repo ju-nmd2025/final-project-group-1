@@ -26,11 +26,11 @@ export default class Platform {
 
   show() {
     if (this.type === "normal") fill(255, 0, 0); //röd
-    else if (this.type === "moving") fill(255, 80, 80); //ljusare röd
-    else if (this.type === "breaking") fill(255, 130, 130); //röd/rosa
+    else if (this.type === "moving") fill(255, 100, 100); //ljusare röd
+    else if (this.type === "breaking") fill(255, 150, 150); //röd/rosa
 
     rect(this.x, this.y, this.w, this.h);
-  }
+  } 
 
   onJump() {
     //när snögubben hoppar på platformen
@@ -38,6 +38,6 @@ export default class Platform {
       //broken platform
       this.broken = true;
       this.y = height + 200;
-    }
+    } 
   }
 }
