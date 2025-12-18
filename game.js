@@ -39,7 +39,6 @@ function setup() {
 function draw() {
   background(135, 206, 235);
   drawSnow(); // snö
-  character.draw();
 
   if (gameState === "start") {
     background(100, 150);
@@ -59,8 +58,8 @@ function draw() {
   }
 
   // Kameran följer karaktären
-  if (character.y < cameraY + height / 3) {
-    cameraY -= (cameraY + height / 3 - character.y) * 0.2;
+  if (character.y < cameraY + height / 2) {
+    cameraY = character.y - height / 2;
   }
 
   // Fallande rörelse
@@ -86,6 +85,9 @@ function draw() {
 
   push();
   translate(0, -cameraY);
+
+  //rita snögubbe (kameran följer efter)
+  character.draw();
 
   // Uppdatera och visa plattformar
   for (let pl of platforms) {
@@ -124,7 +126,7 @@ function checkPlatformCollision(p, pl) {
     p.x + p.w > pl.x &&
     p.x < pl.x + pl.w
   ) {
-    p.fallspeed = -15; // hopphöjd
+    p.fallspeed = -14; // hopphöjd
     pl.onJump();
   }
 }
