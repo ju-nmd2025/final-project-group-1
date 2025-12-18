@@ -1,5 +1,5 @@
-import Snowman from "./character.js";
-import Platform from "./platform.js";
+import { Snowman } from "./character.js";
+import { Platform } from "./platform.js";
 
 let character;
 const groundY = 800;
@@ -201,11 +201,10 @@ function drawSnow() {
     }
   }
 }
-// All your other code is above!
-window.setup = setup;
 
+window.setup = setup;
 window.draw = draw;
 
-window.addEventListener("keydown", function (event) {
+window.addEventListener("keydown", function () {
   keyPressed();
 });

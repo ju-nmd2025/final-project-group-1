@@ -78,3 +78,5 @@ export default class Snowman {
     pop();
   }
 }
+
+export { Snowman };
