@@ -8,6 +8,7 @@ let platforms = [];
 let gameState = "start"; // start | playing | gameover
 let cameraY = 0; // Kamerans vertikala position
 let snowflakes = []; //snö
+let lastPlatformY; //håller koll på senaste platformens höjd
 
 function setup() {
   createCanvas(400, 600);
@@ -24,6 +25,9 @@ function setup() {
       )
     );
   }
+  //y-position från högsta plattform blir startpunkt
+  lastPlatformY = platforms[platforms.length - 1].y;
+
   //skapa snöflingor
   for (let i = 0; i < 50; i++) {
     //loop som skapar snö
@@ -101,11 +105,13 @@ function draw() {
     if (platforms[i].y - cameraY > height) {
       platforms.splice(i, 1); // ta bort plattformen
 
+      lastPlatformY -= random(70, 100); //jämnt avstånd uppåt
+
       // skapa ny plattform ovanför kameran
       platforms.push(
         new Platform(
           random(20, width - 80),
-          cameraY - random(80, 120),
+          lastPlatformY, //ny y-position ovanför den förra
           random(["normal", "moving", "breaking"])
         )
       );
@@ -122,7 +128,7 @@ function checkPlatformCollision(p, pl) {
   if (
     p.fallspeed > 0 && // bara när spelaren faller
     p.y + p.h >= pl.y && // spelarens fötter under plattformens topp
-    p.y + p.h <= pl.y + 10 && // inom 10 px under plattformens topp
+    p.y + p.h <= pl.y + 20 && // inom 20 px under plattformens topp
     p.x + p.w > pl.x &&
     p.x < pl.x + pl.w
   ) {
@@ -159,6 +165,8 @@ function restartGame() {
       )
     );
   }
+  //återställ höjden så nya plattformar fortsätter uppåt
+  lastPlatformY = platforms[platforms.length - 1].y;
 }
 
 function drawSnow() {
