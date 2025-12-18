@@ -9,6 +9,7 @@ let gameState = "start"; // start | playing | gameover
 let cameraY = 0; // Kamerans vertikala position
 let snowflakes = []; //snö
 let lastPlatformY; //håller koll på senaste platformens höjd
+let score = 0; //poäng
 
 function setup() {
   createCanvas(400, 600);
@@ -44,6 +45,12 @@ function draw() {
   background(135, 206, 235);
   drawSnow(); // snö
 
+  //visa poäng vänster hörn
+  fill(0);
+  textSize(20);
+  textAlign(LEFT);
+  text("Score: " + score, 10, 30);
+
   if (gameState === "start") {
     background(100, 150);
     fill(255);
@@ -64,6 +71,13 @@ function draw() {
   // Kameran följer karaktären
   if (character.y < cameraY + height / 2) {
     cameraY = character.y - height / 2;
+  }
+
+  //uppdatera poäng efter höjd
+  let currentScore = Math.floor(-cameraY / 100); //1p per 100px
+
+  if (currentScore > score) {
+    score = currentScore;
   }
 
   // Fallande rörelse
@@ -150,6 +164,7 @@ function keyPressed() {
 function restartGame() {
   gameState = "start";
   cameraY = 0;
+  score = 0; //nollställ poäng
   character.x = 200;
   character.y = 300;
   character.fallspeed = 0;
